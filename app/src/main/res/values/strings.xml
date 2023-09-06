@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">Artist Partner</string>
+    <string name="str1">Pause/Resume</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scrn_off_dscp">
+        It will allow timer to keep on running when you switch to another app or switch off the display
+    </string>
+    <string name="ques1">
+        <b>1. Who can use this app?</b>
+    </string>
+    <string name="ques3">
+        <b>3. Can we start a new project without completing the current one?</b>
+    </string>
+    <string name="ques2">
+        <b>2. How to save time after completing a session?</b>
+    </string>
+    <string name="ques4">
+        <b>4. What will happen with the timer if we switch to another app?</b>
+    </string>
+    <string name="ques5">
+        <b>5. What if we want to use the only timer without using the grid method?</b>
+    </string>
+    <string name="ques6">
+        <b>6. Can it be possible that session will ended automatically when you have switched to another app?</b>
+    </string>
+
+    <string name="ans1">
+        The artist who want to create grids on a reference image or who want to keep track of their working hour.
+    </string>
+    <string name="ans2">
+        You don’t need to do anything.simply leave the grid section activity and your data will be automatically saved.
+    </string>
+    <string name="ans3">
+        Yes, you can start any time. The app will save all projects separately so you can work on any existing project at any time.
+    </string>
+    <string name="ans4">
+        Your timer will pause automatically and resume again when you come back to the app
+    </string>
+    <string name="ans5">
+        Yes, it’s possible.Go to the settings and switch on the ‘screen of mode’.
+        Now you can switch off the screen or move to another app it will not affect the running status of the timer.
+    </string>
+    <string name="ans6">
+        Yes, it’s possible that the android system automatically close the app to optimize the power.
+    </string>
+
+
+
+
+
+
+
+
+    <string name="how_1_1">
+        1 - show hide tools
+    </string>
+    <string name="how_1_2">
+        2 - go to home(session will ended here)
+    </string>
+    <string name="how_1_3">
+        3 - use Stop watch manually
+    </string>
+    <string name="how_1_4">
+        4 - go to project overview(session will ended here)
+    </string>
+    <string name="how_2_1">
+        1 - hide/show vertical grids
+    </string>
+    <string name="how_2_2">
+        2 - hide/show timer
+    </string>
+    <string name="how_2_3">
+        3 - grid lines customization (line width, cell size, color)
+    </string>
+    <string name="how_2_4">
+        4 - show/hide diagonal grids
+    </string>
+    <string name="how_2_5">
+        5 - black and white filter
+    </string>
+    <string name="rate">
+        <u>rate us</u>
+    </string>
+</resources>
