@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mainbgpic"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="40dp">
+
+        <Button
+            android:id="@+id/create_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/create_button"
+            android:clickable="true"
+            android:focusable="true"
+            android:textStyle="bold"
+            android:drawableTop="@drawable/ic_create_button"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:text="Create New"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:backgroundTint="@null" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:layout_weight="3">
+
+            <Button
+                android:paddingTop="20dp"
+                android:id="@+id/last_active_project"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/other_button_main"
+                android:drawableTop="@drawable/ic_last_active"
+                android:fontFamily="sans-serif-light"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="Continue Last Project"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:paddingTop="20dp"
+                android:id="@+id/all_project"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/other_button_main"
+                android:drawableTop="@drawable/ic_all_project"
+                android:clickable="true"
+                android:focusable="true"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_horizontal"
+                android:text="Project List"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+        <Button
+            android:clickable="true"
+            android:id="@+id/setting_btn1"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:foregroundGravity="center_horizontal"
+            android:text="Settings"
+            android:paddingRight="180dp"
+            android:textAllCaps="false"
+            android:focusable="true"
+            android:textSize="22dp"
+            android:drawableLeft="@drawable/ic_setting"/>
+        <Button
+            android:clickable="true"
+            android:id="@+id/help_btn"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:foregroundGravity="center_horizontal"
+            android:text="Help"
+            android:paddingRight="212dp"
+            android:textAllCaps="false"
+            android:focusable="true"
+            android:textSize="22dp"
+            android:drawableLeft="@drawable/ic_help"/>
+        <Button
+            android:clickable="true"
+            android:id="@+id/rate_us_btn"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:foregroundGravity="center_horizontal"
+            android:text="Rate us"
+            android:paddingRight="184dp"
+            android:textAllCaps="false"
+            android:focusable="true"
+            android:textSize="22dp"
+            android:drawableLeft="@drawable/ic_rate_us"/>
+        <Button
+            android:clickable="true"
+            android:id="@+id/share_btn"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:foregroundGravity="center_horizontal"
+            android:text="Share"
+            android:paddingRight="202dp"
+            android:textAllCaps="false"
+            android:focusable="true"
+            android:textSize="22dp"
+            android:drawableLeft="@drawable/ic_share"/>
+    </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

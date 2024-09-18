@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Artist Partner</string>
+    <string name="str1">Pause/Resume</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scrn_off_dscp">
+        It will allow timer to keep on running when you switch to another app or switch off the display
+    </string>
+    <string name="ques1">
+        Who can use this app?
+    </string>
+    <string name="ques3">
+        Can we start a new project without finishing the current one?
+    </string>
+    <string name="ques2">
+        How to save time after completing a session?
+    </string>
+    <string name="ques4">
+        What will happen to timer if we switch to another app?
+    </string>
+    <string name="ques5">
+        What if anyone want to use only timer without using app reference image?
+    </string>
+    <string name="ques6">
+        Can it be possible that session will ended automatically when you have switched to another app?
+    </string>
+
+    <string name="ans1">
+        Artists who need to create grids on reference image or track their working hours.
+    </string>
+    <string name="ans2">
+        You don’t need to do anything and app will  automatically update your Session time;
+    </string>
+    <string name="ans3">
+        You can do. App will save all projects separately so you can work on any existing project at any time.
+    </string>
+    <string name="ans4">
+        Your timer will pause automatically and resume again when you come back to the app
+    </string>
+    <string name="ans5">
+        Yes, you can. Go to the settings and switch on the ‘screen of mode’. Now timer will continue running even when the mobile screen is turned off.
+    </string>
+    <string name="ans6">
+        Yes, it’s possible. Sometime android system automatically close the app to optimize the power.
+    </string>
+
+
+    <string name="how_1_1">
+        1 - show hide tools
+    </string>
+    <string name="how_1_2">
+        2 - go to home(session will ended here)
+    </string>
+    <string name="how_1_3">
+        3 - use Stop watch manually
+    </string>
+    <string name="how_1_4">
+        4 - go to project overview(session will ended here)
+    </string>
+    <string name="how_2_1">
+        1 - hide/show vertical grids
+    </string>
+    <string name="how_2_2">
+        2 - hide/show timer
+    </string>
+    <string name="how_2_3">
+        3 - grid lines customization (line width, cell size, color)
+    </string>
+    <string name="how_2_4">
+        4 - show/hide diagonal grids
+    </string>
+    <string name="how_2_5">
+        5 - black and white filter
+    </string>
+    <string name="rate">
+        <u>rate us</u>
+    </string>
+</resources>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".LuckyGridview">
+
+    <com.google.android.gms.ads.admanager.AdManagerAdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adManagerAdView"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-6124418871253427/5044829309">
+    </com.google.android.gms.ads.admanager.AdManagerAdView>
+
+
+        <RelativeLayout
+
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <com.appbygourav.gridtimeanalysisapp.ZoomLayout
+                android:id="@+id/gridZoomLayoutId"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/gridImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+
+                android:id="@+id/image11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                 />
+            <com.appbygourav.gridtimeanalysisapp.DrawView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/lineview"/>
+
+            <com.appbygourav.gridtimeanalysisapp.GridLabelView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridlabelview"/>
+            </RelativeLayout>
+            </com.appbygourav.gridtimeanalysisapp.ZoomLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="true"
+                android:backgroundTint="@color/purple_700"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_add" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/bw_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@id/add_btn"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="true"
+                android:backgroundTint="@color/purple_700"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_bw" />
+            <!--new version 2-->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/diagonal_grids"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@id/bw_btn"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="true"
+                android:backgroundTint="@color/purple_700"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_diagonal_grides" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/edit"
+                android:layout_above="@id/add_btn"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="true"
+                android:backgroundTint="#FF3700B3"
+                app:tint="@color/white"
+
+                app:srcCompat="@drawable/ic_edit" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/stop_watch"
+                android:layout_above="@id/edit"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="true"
+                android:backgroundTint="#FF3700B3"
+                app:tint="@color/white"
+
+                app:srcCompat="@drawable/ic_stopwatch" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/grid_show"
+                android:layout_above="@id/stop_watch"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="true"
+                android:backgroundTint="#FF3700B3"
+                app:tint="@color/white"
+                app:srcCompat="@drawable/ic_normal_grids" />
+
+
+
+
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/stop_watch_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+       <ImageButton
+           android:id="@+id/home_btn"
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:background="@color/black"
+           android:layout_height="match_parent"
+           app:tint="@color/white"
+           android:scaleType="center"
+           android:src="@drawable/ic_home"/>
+      <!--  <ImageButton
+            android:id="@+id/start_btn"
+            android:layout_marginLeft="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            app:tint="@color/white"
+            android:scaleType="center"
+            android:src="@drawable/ic_start" />-->
+        <Button
+            android:id="@+id/start_btn"
+            android:layout_marginLeft="1dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="start"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_gravity="center"/>
+
+        <Chronometer
+
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:layout_marginLeft="1dp"
+            android:gravity="center"
+            android:id="@+id/stopwatch"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
+       <!-- <ImageButton
+            android:id="@+id/pause_btn"
+            android:layout_marginLeft="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:tint="@color/white"
+            android:background="@color/black"
+            android:scaleType="center"
+            android:src="@drawable/ic_pause"/>-->
+        <Button
+            android:id="@+id/pause_btn"
+            android:layout_marginLeft="1dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:text="pause"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/imgDownloadBtn"
+            android:layout_marginLeft="1dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            app:tint="@color/white"
+            android:scaleType="center"
+            android:src="@drawable/ic_download"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
