@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1019635446687",
+    "project_id": "artistpartnerapp",
+    "storage_bucket": "artistpartnerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019635446687:android:7457fffc0abc2ac6af83aa",
+        "android_client_info": {
+          "package_name": "com.appbygourav.gridtimeanalysisapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMPr2maC6Vxc6iap8GJT0VCWseKxZi5Os"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.appbygourav.DataBaseService.DataBaseHelper;
 import com.appbygourav.Service.CommonUtility;
+import com.appbygourav.Service.FirebaseAnalyticsService;
 import com.appbygourav.beans.ProjectDetail;
 import com.appbygourav.beans.SessionDetails;
 
@@ -39,12 +40,17 @@ public class ProjectOverview extends AppCompatActivity {
 
     DataBaseHelper dbHelp;
 
+    FirebaseAnalyticsService firebaseAnalyticsService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_project_overview);
+
+        firebaseAnalyticsService = new FirebaseAnalyticsService(this);
+        firebaseAnalyticsService.logScreenView("ProjectOverview", this.getClass().getSimpleName());
 
         Bundle extras=getIntent().getExtras();
         current_project_id=extras.getInt("id_number");

@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.appbygourav.DataBaseService.DataBaseHelper;
 
 import com.appbygourav.Service.CommonUtility;
+import com.appbygourav.Service.FirebaseAnalyticsService;
 import com.appbygourav.beans.ProjectDetail;
 import com.appbygourav.beans.SessionDetails;
 import com.google.android.gms.ads.AdListener;
@@ -74,6 +75,8 @@ public class LuckyGridview extends AppCompatActivity {
 
     private AdManagerAdView mAdManagerAdView;
 
+    private FirebaseAnalyticsService firebaseAnalyticsService;
+
     private Handler handler = new Handler();
 
     @Override
@@ -81,6 +84,9 @@ public class LuckyGridview extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        firebaseAnalyticsService = new FirebaseAnalyticsService(this);
+        firebaseAnalyticsService.logScreenView("LuckyGridView", this.getClass().getSimpleName());
 
         onCreateInitialize();
         setContentView(R.layout.activity_luckygridview);
@@ -130,6 +136,7 @@ public class LuckyGridview extends AppCompatActivity {
                 ZoomLayout zoomLayout=(ZoomLayout)findViewById(R.id.gridZoomLayoutId);
                 zoomLayout.setZoomScaleToZero();
                 Handler handler = new Handler(Looper.getMainLooper());
+                firebaseAnalyticsService.logCustomEvent("LuckyGridView","downloadImage-clicked",String.valueOf(current_project_id));
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
@@ -164,6 +171,7 @@ public class LuckyGridview extends AppCompatActivity {
         start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseAnalyticsService.logCustomEvent("LuckyGridView","startTimer-clicked",String.valueOf(current_project_id));
                 if(!running && pause_offset==0){
                     start_btn.setText("reset");   //version 2
                     Date currDateTime = new Date();

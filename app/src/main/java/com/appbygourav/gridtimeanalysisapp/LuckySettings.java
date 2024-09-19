@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.appbygourav.DataBaseService.DataBaseHelper;
 import com.appbygourav.Service.CommonUtility;
+import com.appbygourav.Service.FirebaseAnalyticsService;
 import com.appbygourav.beans.WorkBean;
 
 
@@ -22,6 +23,8 @@ public class LuckySettings extends AppCompatActivity {
     public static final String SHARED_PREF="SHARED_PREF";
     TextView session,time_hour,time_min,project,best_session,best_project;
 
+    FirebaseAnalyticsService firebaseAnalyticsService;
+
     Switch sw1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +33,10 @@ public class LuckySettings extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_lucky_settings);
 
-
+        firebaseAnalyticsService = new FirebaseAnalyticsService(this);
+        firebaseAnalyticsService.logScreenView("luckySetting", this.getClass().getSimpleName());
 
         sw1=findViewById(R.id.switch1);
-
-
-
         sw1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

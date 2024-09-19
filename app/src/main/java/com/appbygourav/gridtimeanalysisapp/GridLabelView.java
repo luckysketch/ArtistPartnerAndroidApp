@@ -9,6 +9,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.appbygourav.Service.FirebaseCrashlyticsService;
+
 public class GridLabelView extends View {
 
     private double ratio;  //width:height
@@ -63,28 +65,34 @@ public class GridLabelView extends View {
         int t = 0;
         String topLabel="";
         String sideLabel="";
-        while(i*cellHeightPx<viewWidthPx){
-            topLabel= String.valueOf(i);
-            t=i-1;
-            if(i!=1)
-                canvas.drawText(topLabel,t * cellHeightPx+ paddingLeft,drawViewTopPos+fontSize+zoomOffsetFromTop,paint);
-            i++;
-        }
-        t=i-1;
-        topLabel= String.valueOf(i);
-        canvas.drawText(topLabel,t * cellHeightPx+ paddingLeft,drawViewTopPos+fontSize+zoomOffsetFromTop,paint);
-        i=1;
-        while(i*cellHeightPx<(imageHeight)) {
-            sideLabel= String.valueOf(i);
-            t=i-1;
-            if(i!=1){
-                canvas.drawText(sideLabel,this.paddingLeft+zoomOffsetFromLeft,drawViewTopPos+t*cellHeightPx+fontSize,paint);
+        try{
+            while(i*cellHeightPx<viewWidthPx){
+                topLabel= String.valueOf(i);
+                t=i-1;
+                if(i!=1)
+                    canvas.drawText(topLabel,t * cellHeightPx+ paddingLeft,drawViewTopPos+fontSize+zoomOffsetFromTop,paint);
+                i++;
             }
-            i++;
+            t=i-1;
+            topLabel= String.valueOf(i);
+            canvas.drawText(topLabel,t * cellHeightPx+ paddingLeft,drawViewTopPos+fontSize+zoomOffsetFromTop,paint);
+            i=1;
+            while(i*cellHeightPx<(imageHeight)) {
+                sideLabel= String.valueOf(i);
+                t=i-1;
+                if(i!=1){
+                    canvas.drawText(sideLabel,this.paddingLeft+zoomOffsetFromLeft,drawViewTopPos+t*cellHeightPx+fontSize,paint);
+                }
+                i++;
+            }
+            t=i-1;
+            sideLabel= String.valueOf(i);
+            canvas.drawText(sideLabel,this.paddingLeft+zoomOffsetFromLeft,drawViewTopPos+t*cellHeightPx+fontSize,paint);
+        }catch(Exception e){
+            String actionVal = String.valueOf(cellHeightPx)+" | "+ String.valueOf(viewWidthPx)+" | "+ String.valueOf(drawViewTopPos)+" | "+ String.valueOf(imageHeight)+" | "+this.toString();
+            FirebaseCrashlyticsService.fireExceptionEvent(e,"MainActivity","drawLabels",actionVal,"labelDraw");
         }
-        t=i-1;
-        sideLabel= String.valueOf(i);
-        canvas.drawText(sideLabel,this.paddingLeft+zoomOffsetFromLeft,drawViewTopPos+t*cellHeightPx+fontSize,paint);
+
     }
 
     public void moveLabelOnZoom(float dx,float maxDx,float dy,float maxDy,float scale){

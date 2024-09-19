@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.appbygourav.DataBaseService.DataBaseHelper;
+import com.appbygourav.Service.FirebaseAnalyticsService;
 import com.appbygourav.beans.ProjectDetail;
 
 
@@ -32,12 +33,16 @@ public class AllProjects extends AppCompatActivity {
     private int currentProjectListStatus = 0;
     private TextView noDataText;
 
+    private FirebaseAnalyticsService firebaseAnalyticsService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_all_projects);
+        firebaseAnalyticsService = new FirebaseAnalyticsService(this);
+        firebaseAnalyticsService.logScreenView("AllProject", this.getClass().getSimpleName());
         activeButtonBackground = ContextCompat.getDrawable(AllProjects.this, R.drawable.button_type_border);
 
         dbHelper=new DataBaseHelper(AllProjects.this);

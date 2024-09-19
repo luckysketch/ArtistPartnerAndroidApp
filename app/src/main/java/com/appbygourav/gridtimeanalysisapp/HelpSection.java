@@ -13,10 +13,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.appbygourav.Service.FirebaseAnalyticsService;
+
 public class HelpSection extends AppCompatActivity {
 
     TextView ques1,ques2,ques3,ques4,ques5,ques6;
     LinearLayout quesListView;
+
+    FirebaseAnalyticsService firebaseAnalyticsService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,9 @@ public class HelpSection extends AppCompatActivity {
         setContentView(R.layout.fragment_faq);
         getSupportActionBar().hide();
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        firebaseAnalyticsService = new FirebaseAnalyticsService(this);
+        firebaseAnalyticsService.logScreenView("HelpSection", this.getClass().getSimpleName());
 
         quesListView = findViewById(R.id.quesListViewId);
 

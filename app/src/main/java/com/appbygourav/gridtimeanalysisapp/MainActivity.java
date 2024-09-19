@@ -1,17 +1,14 @@
 package com.appbygourav.gridtimeanalysisapp;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,13 +20,16 @@ import android.widget.Toast;
 
 import com.appbygourav.DataBaseService.DataBaseHelper;
 import com.appbygourav.Service.CommonUtility;
+import com.appbygourav.Service.FirebaseAnalyticsService;
+import com.appbygourav.Service.FirebaseCrashlyticsService;
+import com.appbygourav.Service.FirebaseCrashlyticsService;
 import com.appbygourav.beans.ProjectDetail;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-//
+import com.google.firebase.FirebaseApp;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
 
     File directory;
     ContextWrapper cw;
+    FirebaseAnalyticsService firebaseAnalyticsService;
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
 
@@ -56,15 +57,16 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_STORAGE_PERMISSION);
-        }
+        FirebaseApp.initializeApp(this);
+        FirebaseCrashlyticsService.initializeCrashlyticsCustomKey();
+        firebaseAnalyticsService = new FirebaseAnalyticsService(this);
+        firebaseAnalyticsService.logScreenView("MainActivity", this.getClass().getSimpleName());
 
         create_btn=findViewById(R.id.create_btn);
         create_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firebaseAnalyticsService.logCustomEvent("MainActivity","createNew-clicked","");
                 openDialog();
             }
         });
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
             public void onClick(View v) {
                 SharedPreferences sharedPreferences=getSharedPreferences(CommonUtility.SHARED_PREF,MODE_PRIVATE);
                 int lastActiveProjectId=sharedPreferences.getInt(CommonUtility.LAST_ACTIVE_PROJECT_ID,-1);
+                firebaseAnalyticsService.logCustomEvent("MainActivity","recentActivity-clicked",String.valueOf(lastActiveProjectId));
                 if(lastActiveProjectId!=-1){
                     Intent intent=new Intent(MainActivity.this,LuckyGridview.class);
                     intent.putExtra("id_number",lastActiveProjectId);
@@ -89,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
         all_project.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent=new Intent(MainActivity.this,AllProjects.class);
                 startActivity(intent);
             }
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
             @Override
             public void onClick(View v) {
                 try{
+                    firebaseAnalyticsService.logCustomEvent("MainActivity","rateUs-clicked","");
                     startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("market://details?id=com.appbygourav.gridtimeanalysisapp")));
 
                 }
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
             @Override
             public void onClick(View v) {
                 try{
+                    firebaseAnalyticsService.logCustomEvent("MainActivity","share-clicked","");
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     String body = "Checkout this grid drawing app\n";
@@ -168,18 +172,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_STORAGE_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-            } else {
-                // Permission denied
-            }
-        }
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
@@ -200,17 +192,20 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
                     Toast.makeText(MainActivity.this,"Something getting wrong",Toast.LENGTH_SHORT).show();
                 else{
                     int cur=dataBaseHelper.current();
+                    String eventValue = String.valueOf(cur);
+                    firebaseAnalyticsService.logCustomEvent("MainActivity","projectCreated",eventValue);
                     Intent intent=new Intent(MainActivity.this,LuckyGridview.class);
                     intent.putExtra("id_number",cur);
                     startActivity(intent);
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                FirebaseCrashlyticsService.fireExceptionEvent(e,"MainActivity","onActivityResult","","");
                 Toast.makeText(this, "Failed to load image. Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
         else{
+            firebaseAnalyticsService.logCustomEvent("MainActivity","ProjectCreationFailed","Failed to load image");
             Toast.makeText(MainActivity.this,"Something getting wrong",Toast.LENGTH_SHORT).show();
         }
     }
@@ -235,6 +230,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
         project_name=projectName;
         float x=(float)paper_width;
         float y=(float)paper_heigth;
+        String eventValue = String.valueOf(width)+" | "+String.valueOf(height)+" | "+String.valueOf(projectName);
+        firebaseAnalyticsService.logCustomEvent("MainActivity","createProjectOpen-clicked",eventValue);
 
         ImagePicker.with(MainActivity.this)
                 .crop(x,y)	    			//Crop image(Optional), Check Customization for more option

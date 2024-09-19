@@ -9,6 +9,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import com.appbygourav.Service.FirebaseCrashlyticsService;
+
+
 public class DrawView extends View {
     private double ratio;  //width:height
     private int width_paper;   //width of paper( int mm)
@@ -58,95 +61,107 @@ public class DrawView extends View {
     }
 
     private void drawVerticalGrid(Canvas canvas,int cellHeightPx,int viewWidthPx,int drawViewTopPos,int imageHeight,Paint paint) {
-        int i=1;
-        while(i*cellHeightPx<viewWidthPx){
-            canvas.drawLine(i * cellHeightPx, drawViewTopPos+0, i * cellHeightPx, drawViewTopPos +imageHeight, paint);
-            i++;
+        try{
+            int i=1;
+            while(i*cellHeightPx<viewWidthPx){
+                canvas.drawLine(i * cellHeightPx, drawViewTopPos+0, i * cellHeightPx, drawViewTopPos +imageHeight, paint);
+                i++;
+            }
+            i=1;
+            while(i*cellHeightPx<(imageHeight)) {
+                canvas.drawLine(0,  drawViewTopPos+i * cellHeightPx, viewWidthPx,  drawViewTopPos+i * cellHeightPx, paint);
+                i++;
+            }
+        }catch(Exception e){
+            String actionVal = String.valueOf(cellHeightPx)+" | "+ String.valueOf(viewWidthPx)+" | "+ String.valueOf(drawViewTopPos)+" | "+ String.valueOf(imageHeight)+" | "+this.toString();
+            FirebaseCrashlyticsService.fireExceptionEvent(e,"LuckyGridView","drawVerticalGrid",actionVal,"gridDraw");
         }
-        i=1;
-        while(i*cellHeightPx<(imageHeight)) {
-            canvas.drawLine(0,  drawViewTopPos+i * cellHeightPx, viewWidthPx,  drawViewTopPos+i * cellHeightPx, paint);
-            i++;
-        }
+
     }
 
     private void drawDiagonalGrid(Canvas canvas,int cellHeightPx,int viewWidthPx,int drawViewTopPos,int imageHeight,Paint paint) {
         // grid lines(\\)
-        int i=0;  //i for x axis
-        int j=0;   //j for y axis
-        while(cellHeightPx*i<=imageHeight && cellHeightPx*j<=viewWidthPx) {
-            canvas.drawLine(0,cellHeightPx*j+drawViewTopPos,cellHeightPx*i,drawViewTopPos,paint);
-            i++;
-            j++;
-        }
-        while(cellHeightPx*j<=imageHeight){
-            canvas.drawLine(0,cellHeightPx*j+drawViewTopPos,viewWidthPx,cellHeightPx*j+drawViewTopPos-viewWidthPx,paint);
-            j++;
-        }
-        while(cellHeightPx*i<=viewWidthPx){
-            canvas.drawLine(cellHeightPx*i-imageHeight,imageHeight+drawViewTopPos,cellHeightPx*i,drawViewTopPos,paint);
-            i++;
+        try{
+            int i=0;  //i for x axis
+            int j=0;   //j for y axis
+            while(cellHeightPx*i<=imageHeight && cellHeightPx*j<=viewWidthPx) {
+                canvas.drawLine(0,cellHeightPx*j+drawViewTopPos,cellHeightPx*i,drawViewTopPos,paint);
+                i++;
+                j++;
+            }
+            while(cellHeightPx*j<=imageHeight){
+                canvas.drawLine(0,cellHeightPx*j+drawViewTopPos,viewWidthPx,cellHeightPx*j+drawViewTopPos-viewWidthPx,paint);
+                j++;
+            }
+            while(cellHeightPx*i<=viewWidthPx){
+                canvas.drawLine(cellHeightPx*i-imageHeight,imageHeight+drawViewTopPos,cellHeightPx*i,drawViewTopPos,paint);
+                i++;
+            }
+
+            int offsetx=cellHeightPx*j-imageHeight;
+            if(offsetx==cellHeightPx)
+                offsetx=0;
+            int offsety=cellHeightPx*i-viewWidthPx;
+            if(offsety==cellHeightPx)
+                offsety=0;
+
+            if(imageHeight>viewWidthPx){
+                i=0;
+                while((i*cellHeightPx+offsetx)<viewWidthPx){
+                    int stopy=imageHeight+drawViewTopPos-(viewWidthPx-i*cellHeightPx-offsetx);
+                    canvas.drawLine(i*cellHeightPx+offsetx,imageHeight+drawViewTopPos,viewWidthPx,stopy,paint);
+                    i++;
+                }
+            }
+            else{
+                i=0;
+                while((drawViewTopPos+cellHeightPx*i+offsety)<(drawViewTopPos+imageHeight)){
+                    int stopx=viewWidthPx-(imageHeight-cellHeightPx*i-offsety);
+                    canvas.drawLine(stopx,imageHeight+drawViewTopPos,viewWidthPx,drawViewTopPos+cellHeightPx*i+offsety,paint);
+                    i++;
+                }
+            }
+            // grid lines(//)
+            if(imageHeight>viewWidthPx){
+                i=0;
+                while(cellHeightPx*i<viewWidthPx){
+                    canvas.drawLine(cellHeightPx*i,drawViewTopPos,viewWidthPx,drawViewTopPos+viewWidthPx-cellHeightPx*i,paint);
+                    i++;
+                }
+                i=0;
+                while((viewWidthPx+i*cellHeightPx)<=imageHeight){
+                    canvas.drawLine(0,drawViewTopPos+i*cellHeightPx,viewWidthPx,drawViewTopPos+viewWidthPx+i*cellHeightPx,paint);
+                    i++;
+                }
+                while(i*cellHeightPx<imageHeight){
+                    int stopx=(drawViewTopPos+imageHeight)-(drawViewTopPos+i*cellHeightPx);
+                    canvas.drawLine(0,drawViewTopPos+cellHeightPx*i,stopx,drawViewTopPos+imageHeight,paint);
+                    i++;
+                }
+            }
+            else{
+                i=0;
+                while(cellHeightPx*i<imageHeight){
+                    int stopx=(drawViewTopPos+imageHeight)-(drawViewTopPos+i*cellHeightPx);
+                    canvas.drawLine(0,drawViewTopPos+cellHeightPx*i,stopx,drawViewTopPos+imageHeight,paint);
+                    i++;
+                }
+                i=0;
+                while((imageHeight+i*cellHeightPx)<=viewWidthPx){
+                    canvas.drawLine(i*cellHeightPx,drawViewTopPos,imageHeight+i*cellHeightPx,drawViewTopPos+imageHeight,paint);
+                    i++;
+                }
+                while(i*cellHeightPx<viewWidthPx){
+                    int stopy=drawViewTopPos+(viewWidthPx-i*cellHeightPx);
+                    canvas.drawLine(i*cellHeightPx,drawViewTopPos,viewWidthPx,stopy,paint);
+                    i++;
+                }
+            }
+        }catch(Exception e){
+            String actionVal = String.valueOf(cellHeightPx)+" | "+ String.valueOf(viewWidthPx)+" | "+ String.valueOf(drawViewTopPos)+" | "+ String.valueOf(imageHeight)+" | "+this.toString();
+            FirebaseCrashlyticsService.fireExceptionEvent(e,"LuckyGridView","drawDiagonalGrid",actionVal,"gridDraw");
         }
 
-        int offsetx=cellHeightPx*j-imageHeight;
-        if(offsetx==cellHeightPx)
-            offsetx=0;
-        int offsety=cellHeightPx*i-viewWidthPx;
-        if(offsety==cellHeightPx)
-            offsety=0;
-
-        if(imageHeight>viewWidthPx){
-            i=0;
-            while((i*cellHeightPx+offsetx)<viewWidthPx){
-                int stopy=imageHeight+drawViewTopPos-(viewWidthPx-i*cellHeightPx-offsetx);
-                canvas.drawLine(i*cellHeightPx+offsetx,imageHeight+drawViewTopPos,viewWidthPx,stopy,paint);
-                i++;
-            }
-        }
-        else{
-            i=0;
-            while((drawViewTopPos+cellHeightPx*i+offsety)<(drawViewTopPos+imageHeight)){
-                int stopx=viewWidthPx-(imageHeight-cellHeightPx*i-offsety);
-                canvas.drawLine(stopx,imageHeight+drawViewTopPos,viewWidthPx,drawViewTopPos+cellHeightPx*i+offsety,paint);
-                i++;
-            }
-        }
-        // grid lines(//)
-        if(imageHeight>viewWidthPx){
-            i=0;
-            while(cellHeightPx*i<viewWidthPx){
-                canvas.drawLine(cellHeightPx*i,drawViewTopPos,viewWidthPx,drawViewTopPos+viewWidthPx-cellHeightPx*i,paint);
-                i++;
-            }
-            i=0;
-            while((viewWidthPx+i*cellHeightPx)<=imageHeight){
-                canvas.drawLine(0,drawViewTopPos+i*cellHeightPx,viewWidthPx,drawViewTopPos+viewWidthPx+i*cellHeightPx,paint);
-                i++;
-            }
-            while(i*cellHeightPx<imageHeight){
-                int stopx=(drawViewTopPos+imageHeight)-(drawViewTopPos+i*cellHeightPx);
-                canvas.drawLine(0,drawViewTopPos+cellHeightPx*i,stopx,drawViewTopPos+imageHeight,paint);
-                i++;
-            }
-        }
-        else{
-            i=0;
-            while(cellHeightPx*i<imageHeight){
-                int stopx=(drawViewTopPos+imageHeight)-(drawViewTopPos+i*cellHeightPx);
-                canvas.drawLine(0,drawViewTopPos+cellHeightPx*i,stopx,drawViewTopPos+imageHeight,paint);
-                i++;
-            }
-            i=0;
-            while((imageHeight+i*cellHeightPx)<=viewWidthPx){
-                canvas.drawLine(i*cellHeightPx,drawViewTopPos,imageHeight+i*cellHeightPx,drawViewTopPos+imageHeight,paint);
-                i++;
-            }
-            while(i*cellHeightPx<viewWidthPx){
-                int stopy=drawViewTopPos+(viewWidthPx-i*cellHeightPx);
-                canvas.drawLine(i*cellHeightPx,drawViewTopPos,viewWidthPx,stopy,paint);
-                i++;
-            }
-        }
     }
 
     public void drawAgain(){

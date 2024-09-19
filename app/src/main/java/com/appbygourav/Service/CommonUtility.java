@@ -2,20 +2,15 @@ package com.appbygourav.Service;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.shapes.PathShape;
-import android.net.StaticIpConfiguration;
+
 import android.net.Uri;
 import android.provider.MediaStore;
 
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -140,22 +135,22 @@ public class CommonUtility {
     }
 
     public static Boolean saveBitmapToGallery(Context context, Bitmap bitmap) {
-        ContentValues values = new ContentValues();
-        Date currDateTime = new Date();
-        String fileName = "IMG_"+currDateTime.toString();
-        values.put(MediaStore.Images.Media.TITLE, fileName);
-        values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-        values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + "GridImage"); // Save to a specific folder in Pictures
-
-        Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-        if (uri != null) {
-            try (OutputStream outputStream = context.getContentResolver().openOutputStream(uri)) {
+        try {
+            ContentValues values = new ContentValues();
+            Date currDateTime = new Date();
+            String fileName = "IMG_"+currDateTime.toString();
+            values.put(MediaStore.Images.Media.TITLE, fileName);
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+            values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + "GridImage"); // Save to a specific folder in Pictures
+            Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            if (uri != null) {
+                OutputStream outputStream = context.getContentResolver().openOutputStream(uri);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 return true;
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            FirebaseCrashlyticsService.fireExceptionEvent(e,"LuckyGridView","saveBitmapToGallery","","saveToGallery");
         }
         return false;
     }
