@@ -45,7 +45,9 @@ public class GridLabelView extends View {
 
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        drawLabels(canvas);
+        if(cell_size>0 && width_paper>0 && ratio>0) {
+            drawLabels(canvas);
+        }
     }
 
     public void drawLabels(Canvas canvas){
@@ -89,7 +91,7 @@ public class GridLabelView extends View {
             sideLabel= String.valueOf(i);
             canvas.drawText(sideLabel,this.paddingLeft+zoomOffsetFromLeft,drawViewTopPos+t*cellHeightPx+fontSize,paint);
         }catch(Exception e){
-            String actionVal = String.valueOf(cellHeightPx)+" | "+ String.valueOf(viewWidthPx)+" | "+ String.valueOf(drawViewTopPos)+" | "+ String.valueOf(imageHeight)+" | "+this.toString();
+            String actionVal = "cHPx:"+String.valueOf(cellHeightPx)+" |vWPx:"+ String.valueOf(viewWidthPx)+" |dVTPPx:"+ String.valueOf(drawViewTopPos)+" |iHPx:"+ String.valueOf(imageHeight)+" | "+this.toString();
             FirebaseCrashlyticsService.fireExceptionEvent(e,"MainActivity","drawLabels",actionVal,"labelDraw");
         }
 
@@ -114,6 +116,12 @@ public class GridLabelView extends View {
         invalidate();
         requestLayout();
     }
+
+    public String toString(){
+        String val = "ratio:"+String.valueOf(ratio)+", width_paper:"+String.valueOf(width_paper)+", cell_size:"+String.valueOf(cell_size);
+        return val;
+    }
+
     public double getRatio() {
         return ratio;
     }

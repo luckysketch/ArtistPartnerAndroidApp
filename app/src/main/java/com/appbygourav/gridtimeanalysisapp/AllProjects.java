@@ -42,7 +42,6 @@ public class AllProjects extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_all_projects);
         firebaseAnalyticsService = new FirebaseAnalyticsService(this);
-        firebaseAnalyticsService.logScreenView("AllProject", this.getClass().getSimpleName());
         activeButtonBackground = ContextCompat.getDrawable(AllProjects.this, R.drawable.button_type_border);
 
         dbHelper=new DataBaseHelper(AllProjects.this);
@@ -52,6 +51,11 @@ public class AllProjects extends AppCompatActivity {
         setProjectListOnLayout();
 
         setListenerOnButtons();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAnalyticsService.logScreenView("AllProject", this.getClass().getSimpleName());
     }
 
     private void setListenerOnButtons() {

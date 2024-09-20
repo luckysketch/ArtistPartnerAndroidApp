@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
         FirebaseApp.initializeApp(this);
         FirebaseCrashlyticsService.initializeCrashlyticsCustomKey();
         firebaseAnalyticsService = new FirebaseAnalyticsService(this);
-        firebaseAnalyticsService.logScreenView("MainActivity", this.getClass().getSimpleName());
 
         create_btn=findViewById(R.id.create_btn);
         create_btn.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +153,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDialogBox
         new Thread(() -> {
                     initializeMobileAddSdk();
                 }).start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAnalyticsService.logScreenView("MainActivity",this.getClass().getSimpleName());
     }
 
     private void initializeMobileAddSdk(){

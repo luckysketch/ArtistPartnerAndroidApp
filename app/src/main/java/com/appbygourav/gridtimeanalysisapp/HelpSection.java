@@ -30,7 +30,6 @@ public class HelpSection extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         firebaseAnalyticsService = new FirebaseAnalyticsService(this);
-        firebaseAnalyticsService.logScreenView("HelpSection", this.getClass().getSimpleName());
 
         quesListView = findViewById(R.id.quesListViewId);
 
@@ -41,6 +40,11 @@ public class HelpSection extends AppCompatActivity {
         ques5=findViewById(R.id.Faq_Ques5);
         ques6=findViewById(R.id.Faq_Ques6);
         setQuesOnClickListener();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAnalyticsService.logScreenView("HelpSection", this.getClass().getSimpleName());
     }
     public void setQuesOnClickListener(){
         ques1.setOnClickListener(new View.OnClickListener() {

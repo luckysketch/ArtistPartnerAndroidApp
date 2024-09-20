@@ -36,7 +36,7 @@ public class FirebaseCrashlyticsService {
         crashlytics.setCustomKey(ACTION_VALUE_CUSTOM_KEY, actionValue);
         crashlytics.setCustomKey(ACTION_CATEGORY_CUSTOM_KEY, actionCat);
         crashlytics.recordException(e);
-        setDefaultCustomKey();
+//        setDefaultCustomKey();
 
     }
 

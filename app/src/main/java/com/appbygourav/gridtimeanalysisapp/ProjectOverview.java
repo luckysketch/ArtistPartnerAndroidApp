@@ -50,7 +50,6 @@ public class ProjectOverview extends AppCompatActivity {
         setContentView(R.layout.activity_project_overview);
 
         firebaseAnalyticsService = new FirebaseAnalyticsService(this);
-        firebaseAnalyticsService.logScreenView("ProjectOverview", this.getClass().getSimpleName());
 
         Bundle extras=getIntent().getExtras();
         current_project_id=extras.getInt("id_number");
@@ -112,6 +111,12 @@ public class ProjectOverview extends AppCompatActivity {
 
             }
         },1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAnalyticsService.logScreenView("ProjectOverview", this.getClass().getSimpleName());
     }
 
     public void setTotalHourAndTime(List<SessionDetails> sessionList){

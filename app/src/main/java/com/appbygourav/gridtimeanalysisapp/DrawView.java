@@ -46,17 +46,19 @@ public class DrawView extends View {
         paint.setColor(color);
         paint.setStrokeWidth(line_width);
 
-        int viewWidthPx= getWidth(); //width of custom view
-        int viewHeightPx = getHeight();  //height of custom view
-        int cellHeightPx = (int)((double)cell_size * ((double)viewWidthPx/(double)width_paper));
-        int imageHeight= (int) (this.ratio*(double)viewWidthPx); //height of image
-        int drawViewTopPos=(viewHeightPx-imageHeight)/2;
+        if(cell_size>0 && width_paper>0 && ratio>0) {
+            int viewWidthPx = getWidth(); //width of custom view
+            int viewHeightPx = getHeight();  //height of custom view
+            int cellHeightPx = (int) ((double) cell_size * ((double) viewWidthPx / (double) width_paper));
+            int imageHeight = (int) (this.ratio * (double) viewWidthPx); //height of image
+            int drawViewTopPos = (viewHeightPx - imageHeight) / 2;
 
-        if(this.getFlag_normalgrid()!=null && this.getFlag_normalgrid()){
-            drawVerticalGrid(canvas,cellHeightPx,viewWidthPx,drawViewTopPos,imageHeight,paint);
-        }
-        if(this.getFlag_diagonal()!=null && this.getFlag_diagonal()){
-           drawDiagonalGrid(canvas,cellHeightPx,viewWidthPx,drawViewTopPos,imageHeight,paint);
+            if (this.getFlag_normalgrid() != null && this.getFlag_normalgrid()) {
+                drawVerticalGrid(canvas, cellHeightPx, viewWidthPx, drawViewTopPos, imageHeight, paint);
+            }
+            if (this.getFlag_diagonal() != null && this.getFlag_diagonal()) {
+                drawDiagonalGrid(canvas, cellHeightPx, viewWidthPx, drawViewTopPos, imageHeight, paint);
+            }
         }
     }
 
@@ -73,10 +75,9 @@ public class DrawView extends View {
                 i++;
             }
         }catch(Exception e){
-            String actionVal = String.valueOf(cellHeightPx)+" | "+ String.valueOf(viewWidthPx)+" | "+ String.valueOf(drawViewTopPos)+" | "+ String.valueOf(imageHeight)+" | "+this.toString();
+            String actionVal = "cHPx:"+String.valueOf(cellHeightPx)+" |vWPx:"+ String.valueOf(viewWidthPx)+" |dVTPPx:"+ String.valueOf(drawViewTopPos)+" |iHPx:"+ String.valueOf(imageHeight)+" | "+this.toString();
             FirebaseCrashlyticsService.fireExceptionEvent(e,"LuckyGridView","drawVerticalGrid",actionVal,"gridDraw");
         }
-
     }
 
     private void drawDiagonalGrid(Canvas canvas,int cellHeightPx,int viewWidthPx,int drawViewTopPos,int imageHeight,Paint paint) {
@@ -158,7 +159,7 @@ public class DrawView extends View {
                 }
             }
         }catch(Exception e){
-            String actionVal = String.valueOf(cellHeightPx)+" | "+ String.valueOf(viewWidthPx)+" | "+ String.valueOf(drawViewTopPos)+" | "+ String.valueOf(imageHeight)+" | "+this.toString();
+            String actionVal = "cHPx:"+String.valueOf(cellHeightPx)+" |vWPx:"+ String.valueOf(viewWidthPx)+" |dVTPPx:"+ String.valueOf(drawViewTopPos)+" |iHPx:"+ String.valueOf(imageHeight)+" | "+this.toString();
             FirebaseCrashlyticsService.fireExceptionEvent(e,"LuckyGridView","drawDiagonalGrid",actionVal,"gridDraw");
         }
 
@@ -167,6 +168,10 @@ public class DrawView extends View {
     public void drawAgain(){
         invalidate();
         requestLayout();
+    }
+    public String toString(){
+        String val = "ratio:"+String.valueOf(ratio)+", width_paper:"+String.valueOf(width_paper)+", cell_size:"+String.valueOf(cell_size);
+        return val;
     }
 
     public double getRatio() {

@@ -323,6 +323,12 @@ public class LuckyGridview extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAnalyticsService.logScreenView("LuckyGridView",this.getClass().getSimpleName());
+    }
+
+    @Override
     protected void onRestart() {
         super.onRestart();
         if(running && !screen_off_mode){

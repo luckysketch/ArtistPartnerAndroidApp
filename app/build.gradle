@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
-    id("com.google.firebase.crashlytics") version "3.0.2"
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -12,8 +12,8 @@ android {
         applicationId "com.appbygourav.gridtimeanalysisapp"
         minSdk 29
         targetSdk 34
-        versionCode 6
-        versionName "6.0"
+        versionCode 7
+        versionName "7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
